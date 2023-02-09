@@ -1,10 +1,11 @@
 package com.jwjung.location.remote.naver.dto;
 
+import lombok.With;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.regex.Pattern;
 
-public record NaverMapItemV1(String title, String link,
+public record NaverMapItemV1(@With String title, String link,
                              String category, String description,
                              String telephone, String address,
                              String roadAddress,

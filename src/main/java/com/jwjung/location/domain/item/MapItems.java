@@ -8,9 +8,12 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,10 +26,12 @@ public class MapItems {
                               List<KakaoMapItemV1> kakaoMapItems) {
         List<MapItem> kakaoList = kakaoMapItems.stream()
                 .map(k -> new MapItem(k.placeName(), true))
+                .filter(distinctByKey(MapItem::getFirstWordOfName))
                 .toList();
 
         List<MapItem> naverList = naverMapItems.stream()
-                .map(n -> new MapItem(n.getEscapingTitle(), false))
+                .map(n -> new MapItem(n.title(), false))
+                .filter(distinctByKey(MapItem::getFirstWordOfName))
                 .toList();
 
         Map<Boolean, List<MapItem>> mappedByFromKakao = Stream.concat(kakaoList.stream(), naverList.stream())
@@ -39,7 +44,8 @@ public class MapItems {
 
     public static MapItems naverMapItemsOf(List<NaverMapItemV1> naverMapItems) {
         List<MapItem> naverMapList = naverMapItems.stream()
-                .map(n -> new MapItem(n.getEscapingTitle(), false))
+                .map(n -> new MapItem(n.title(), false))
+                .filter(distinctByKey(MapItem::getFirstWordOfName))
                 .toList();
 
         return MapItems.builder()
@@ -50,11 +56,17 @@ public class MapItems {
     public static MapItems kakaoMapItemsOf(List<KakaoMapItemV1> kakaoMapItemV1List) {
         List<MapItem> kakaoList = kakaoMapItemV1List.stream()
                 .map(k -> new MapItem(k.placeName(), true))
+                .filter(distinctByKey(MapItem::getFirstWordOfName))
                 .toList();
 
         return MapItems.builder()
                 .itemList(kakaoList)
                 .build();
+    }
+
+    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> map = new HashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
     public static List<MapItem> reorderingList(Map<Boolean, List<MapItem>> mappedByFromKakao) {
@@ -76,6 +88,7 @@ public class MapItems {
 
                     kakaoIterator.remove();
                     naverIterator.remove();
+                    break;
                 }
             }
 

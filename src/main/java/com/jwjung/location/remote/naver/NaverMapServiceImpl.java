@@ -16,7 +16,7 @@ public class NaverMapServiceImpl implements NaverMapService {
     @Override
     public List<NaverMapItemV1> getNaverItems(String query) {
         return naverMapClient.getNaverLocationSearch(query)
-                .map(NaverMapResponseV1::items)
+                .map(NaverMapResponseV1::getAdjustItems)
                 .orElseGet(Collections::emptyList);
     }
 }
