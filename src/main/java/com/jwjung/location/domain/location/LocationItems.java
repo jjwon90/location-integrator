@@ -8,11 +8,11 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 @Value
 @Builder
@@ -65,43 +65,62 @@ public class LocationItems {
 
     private static List<LocationItem> reorderingList(List<LocationItem> kakaoList,
                                                      List<LocationItem> naverList) {
-        List<LocationItem> kakaoLocationItems = new ArrayList<>(kakaoList);
-        List<LocationItem> naverLocationItems = new ArrayList<>(naverList);
-
-        Iterator<LocationItem> kakaoIterator = kakaoLocationItems.iterator();
-        Iterator<LocationItem> naverIterator = naverLocationItems.iterator();
+        // mutable한 list로 copy하여 계산용 list로 선언
+        List<LocationItem> mutableKakaoList = new ArrayList<>(kakaoList);
+        List<LocationItem> mutableNaverList = new ArrayList<>(naverList);
 
         List<LocationItem> resultList = new ArrayList<>();
 
-        while (kakaoIterator.hasNext()) {
-            LocationItem kakaoItem = kakaoIterator.next();
-            while (naverIterator.hasNext()) {
-                LocationItem naverItem = naverIterator.next();
-
-                if (kakaoItem.isEqualItem(naverItem)) {
-                    resultList.add(kakaoItem);
-
-                    kakaoIterator.remove();
-                    naverIterator.remove();
-                    break;
-                }
-            }
-
-            if (kakaoIterator.hasNext()) {
-                naverIterator = naverLocationItems.listIterator();
-            }
-        }
+        orderingDuplicateItems(kakaoList, naverList,
+                mutableKakaoList, mutableNaverList,
+                resultList);
 
         if (resultList.size() <= 10) {
-            if (CollectionUtils.isNotEmpty(kakaoLocationItems)) {
-                resultList.addAll(kakaoLocationItems);
-            }
-
-            if (resultList.size() <= 10 && CollectionUtils.isNotEmpty(naverLocationItems)) {
-                resultList.addAll(naverLocationItems);
-            }
+            addRemainedItems(mutableKakaoList, mutableNaverList, resultList);
         }
 
         return resultList;
+    }
+
+    private static void orderingDuplicateItems(List<LocationItem> kakaoList,
+                                               List<LocationItem> naverList,
+                                               List<LocationItem> mutableKakaoList,
+                                               List<LocationItem> mutableNaverList,
+                                               List<LocationItem> resultList) {
+        for (LocationItem kakaoItem : kakaoList) {
+            for (LocationItem naverItem : naverList) {
+                if (kakaoItem.isEqualItem(naverItem)) {
+                    resultList.add(kakaoItem);
+
+                    mutableKakaoList.remove(kakaoItem);
+                    mutableNaverList.remove(naverItem);
+                }
+            }
+        }
+    }
+
+    private static void addRemainedItems(List<LocationItem> kakaoLocationItems,
+                                         List<LocationItem> naverLocationItems,
+                                         List<LocationItem> resultList) {
+        if (CollectionUtils.isNotEmpty(kakaoLocationItems)) {
+            addResultList(kakaoLocationItems, resultList);
+        }
+
+        if (resultList.size() <= 10
+                && CollectionUtils.isNotEmpty(naverLocationItems)) {
+            addResultList(naverLocationItems, resultList);
+        }
+    }
+
+    private static void addResultList(List<LocationItem> locationItems,
+                                      List<LocationItem> resultList) {
+        IntStream.range(0, locationItems.size())
+                .forEach(i -> {
+                    if (resultList.size() > 10) {
+                        return;
+                    }
+
+                    resultList.add(locationItems.get(i));
+                });
     }
 }
