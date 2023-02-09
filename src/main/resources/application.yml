@@ -1,0 +1,19 @@
+jasypt:
+  encryptor:
+    password: JW
+
+naver:
+  host: https://openapi.naver.com
+  client-id: ENC(bVvNUIdZNRkK4rkj201BOU9be65xf38hZL2AlsBn5XNZIMn+PnysKkslhBE/+qlb1tuIfh3K/BKi+31hfIGVQg==)
+  client-secret: ENC(sanEPrxA4qVx8w9JeTU/wKeoYVZUb3wG+19iRhQSnFgeFPnn5OYoLBHWMQ0ElRbo)
+kakao:
+  host: https://dapi.kakao.com
+  client-secret: ENC(03qI7aLVbLsfQyITNidRj7F1JZpt6jcaK87yz4DmzXl6UmlMO9Q7X/ovmtbw3F9GHMocTHM3EfDWnFzjQP00oAGBye7ap2TlfI74ne7rW4w=)
+
+feign:
+  circuitbreaker:
+    enabled: true
+    alphanumeric-ids:
+      enabled: true
+  httpclient:
+    enabled: true
