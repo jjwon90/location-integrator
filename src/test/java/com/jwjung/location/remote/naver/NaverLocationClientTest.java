@@ -10,13 +10,13 @@ import java.util.Optional;
 
 @SpringBootTest
 @Disabled
-class NaverMapClientTest {
+class NaverLocationClientTest {
     @Autowired
-    private NaverMapClient naverMapClient;
+    private NaverLocationClient naverLocationClient;
 
     @Test
     void getNaverLocationSearch() {
-        Optional<NaverMapResponseV1> 은행 = naverMapClient.getNaverLocationSearch("은행");
+        Optional<NaverMapResponseV1> 은행 = naverLocationClient.getNaverLocationSearch("은행");
         은행.get().items()
                 .forEach(System.out::println);
     }

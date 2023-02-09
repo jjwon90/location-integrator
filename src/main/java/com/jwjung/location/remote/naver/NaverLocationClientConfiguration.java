@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class NaverMapClientConfiguration {
+public class NaverLocationClientConfiguration {
     private static final String X_NAVER_CLIENT_ID = "X-Naver-Client-Id";
     private static final String X_NAVER_CLIENT_SECRET = "X-Naver-Client-Secret";
 

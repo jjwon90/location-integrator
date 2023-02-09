@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class KakaoMapClientConfiguration {
+public class KakaoLocationClientConfiguration {
     private static final String KAKAO_AUTH_HEADER = "Authorization";
     private static final String HEADER_PREFIX = "KakaoAK ";
     @Value("${kakao.client-secret}")

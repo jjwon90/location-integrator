@@ -1,7 +1,7 @@
 package com.jwjung.location.remote.kakao;
 
-import com.jwjung.location.remote.kakao.dto.KakaoMapItemV1;
-import com.jwjung.location.remote.kakao.dto.KakaoMapResponseV1;
+import com.jwjung.location.remote.kakao.dto.KakaoLocationItemV1;
+import com.jwjung.location.remote.kakao.dto.KakaoLocationResponseV1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +11,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class KakaoMapServiceImpl implements KakaoMapService {
-    private final KakaoMapClient kakaoMapClient;
+    private final KakaoLocationClient kakaoLocationClient;
 
     @Override
-    public List<KakaoMapItemV1> getKakaoMapItems(String query) {
-        return kakaoMapClient.getKakaoLocationSearch(query)
-                .map(KakaoMapResponseV1::documents)
+    public List<KakaoLocationItemV1> getKakaoMapItems(String query) {
+        return kakaoLocationClient.getKakaoLocationSearch(query)
+                .map(KakaoLocationResponseV1::documents)
                 .orElseGet(Collections::emptyList);
     }
 }

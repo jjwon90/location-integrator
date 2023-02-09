@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class NaverMapServiceImpl implements NaverMapService {
-    private final NaverMapClient naverMapClient;
+    private final NaverLocationClient naverLocationClient;
 
     @Override
     public List<NaverMapItemV1> getNaverItems(String query) {
-        return naverMapClient.getNaverLocationSearch(query)
+        return naverLocationClient.getNaverLocationSearch(query)
                 .map(NaverMapResponseV1::getAdjustItems)
                 .orElseGet(Collections::emptyList);
     }

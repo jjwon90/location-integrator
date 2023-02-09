@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class NaverMapItemsV1Test {
+class NaverLocationItemsV1Test {
 
     @Test
     void getEscapingTitle() {

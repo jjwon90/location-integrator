@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class NaverMapClientFallbackFactory implements FallbackFactory<NaverMapClient> {
+public class NaverLocationClientFallbackFactory implements FallbackFactory<NaverLocationClient> {
     @Override
-    public NaverMapClient create(Throwable cause) {
-        return new NaverMapClient() {
+    public NaverLocationClient create(Throwable cause) {
+        return new NaverLocationClient() {
             @Override
             public Optional<NaverMapResponseV1> getNaverLocationSearch(String query) {
                 return Optional.empty();
