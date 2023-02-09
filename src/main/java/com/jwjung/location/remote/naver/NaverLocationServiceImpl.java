@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class NaverMapServiceImpl implements NaverMapService {
+public class NaverLocationServiceImpl implements NaverLocationService {
     private final NaverLocationClient naverLocationClient;
 
     @Override

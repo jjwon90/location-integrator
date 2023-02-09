@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class KakaoMapServiceImpl implements KakaoMapService {
+public class KakaoLocationServiceImpl implements KakaoLocationService {
     private final KakaoLocationClient kakaoLocationClient;
 
     @Override

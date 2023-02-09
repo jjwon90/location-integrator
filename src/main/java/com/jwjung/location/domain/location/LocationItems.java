@@ -36,6 +36,11 @@ public class LocationItems {
                 .build();
     }
 
+    public static LocationItems emptyOf() {
+        return LocationItems.builder()
+                .build();
+    }
+
     public static LocationItems naverMapItemsOf(List<NaverMapItemV1> naverMapItems) {
         List<LocationItem> naverMapList = naverMapItems.stream()
                 .map(n -> new LocationItem(n.title()))
