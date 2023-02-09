@@ -76,7 +76,6 @@ public class MapItems {
 
                     kakaoIterator.remove();
                     naverIterator.remove();
-                    break;
                 }
             }
 
