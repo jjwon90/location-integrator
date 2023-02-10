@@ -1,7 +1,6 @@
 package com.jwjung.location.domain.location;
 
-import com.jwjung.location.remote.kakao.dto.KakaoLocationItemV1;
-import com.jwjung.location.remote.naver.dto.NaverMapItemV1;
+import com.jwjung.location.remote.model.RemoteLocationItemsV1;
 import lombok.Builder;
 import lombok.Value;
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,15 +18,33 @@ import java.util.stream.IntStream;
 public class LocationItems {
     List<LocationItem> itemList;
 
-    public static LocationItems of(List<NaverMapItemV1> naverMapItems,
-                                   List<KakaoLocationItemV1> kakaoMapItems) {
-        List<LocationItem> kakaoList = kakaoMapItems.stream()
+    public static LocationItems of(RemoteLocationItemsV1 naverItems,
+                                   RemoteLocationItemsV1 kakaoItems) {
+        if (naverItems.isEmpty() && kakaoItems.isEmpty()) {
+            return emptyOf();
+        } else if (kakaoItems.isEmpty()) {
+            return naverItemsOf(naverItems);
+        } else if (naverItems.isEmpty()) {
+            return kakaoItemsOf(kakaoItems);
+        } else {
+            return bothOf(kakaoItems, naverItems);
+        }
+    }
+
+    private static LocationItems emptyOf() {
+        return LocationItems.builder()
+                .build();
+    }
+
+    private static LocationItems bothOf(RemoteLocationItemsV1 kakaoItems,
+                                        RemoteLocationItemsV1 naverItems) {
+        List<LocationItem> kakaoList = kakaoItems.remoteLocationItemList().stream()
                 .map(k -> new LocationItem(k.placeName()))
                 .filter(distinctByKey(LocationItem::getFirstWordOfName))
                 .toList();
 
-        List<LocationItem> naverList = naverMapItems.stream()
-                .map(n -> new LocationItem(n.title()))
+        List<LocationItem> naverList = naverItems.remoteLocationItemList().stream()
+                .map(n -> new LocationItem(n.placeName()))
                 .filter(distinctByKey(LocationItem::getFirstWordOfName))
                 .toList();
 
@@ -36,14 +53,10 @@ public class LocationItems {
                 .build();
     }
 
-    public static LocationItems emptyOf() {
-        return LocationItems.builder()
-                .build();
-    }
-
-    public static LocationItems naverMapItemsOf(List<NaverMapItemV1> naverMapItems) {
-        List<LocationItem> naverMapList = naverMapItems.stream()
-                .map(n -> new LocationItem(n.title()))
+    private static LocationItems naverItemsOf(RemoteLocationItemsV1 naverItems) {
+        List<LocationItem> naverMapList = naverItems.remoteLocationItemList()
+                .stream()
+                .map(n -> new LocationItem(n.placeName()))
                 .filter(distinctByKey(LocationItem::getFirstWordOfName))
                 .toList();
 
@@ -52,8 +65,8 @@ public class LocationItems {
                 .build();
     }
 
-    public static LocationItems kakaoMapItemsOf(List<KakaoLocationItemV1> kakaoLocationItemV1List) {
-        List<LocationItem> kakaoList = kakaoLocationItemV1List.stream()
+    private static LocationItems kakaoItemsOf(RemoteLocationItemsV1 kakaoItems) {
+        List<LocationItem> kakaoList = kakaoItems.remoteLocationItemList().stream()
                 .map(k -> new LocationItem(k.placeName()))
                 .filter(distinctByKey(LocationItem::getFirstWordOfName))
                 .toList();

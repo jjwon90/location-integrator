@@ -1,9 +1,7 @@
 package com.jwjung.location.remote.naver;
 
-import com.jwjung.location.remote.naver.dto.NaverMapItemV1;
-
-import java.util.List;
+import com.jwjung.location.remote.model.RemoteLocationItemsV1;
 
 public interface NaverLocationService {
-    List<NaverMapItemV1> getNaverItems(String query);
+    RemoteLocationItemsV1 getNaverItems(String query);
 }

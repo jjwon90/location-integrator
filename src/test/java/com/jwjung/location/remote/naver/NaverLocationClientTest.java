@@ -1,6 +1,6 @@
 package com.jwjung.location.remote.naver;
 
-import com.jwjung.location.remote.naver.dto.NaverMapResponseV1;
+import com.jwjung.location.remote.naver.dto.NaverLocationResponseV1;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ class NaverLocationClientTest {
 
     @Test
     void getNaverLocationSearch() {
-        Optional<NaverMapResponseV1> 은행 = naverLocationClient.getNaverLocationSearch("은행");
+        Optional<NaverLocationResponseV1> 은행 = naverLocationClient.getNaverLocationSearch("은행");
         은행.get().items()
                 .forEach(System.out::println);
     }

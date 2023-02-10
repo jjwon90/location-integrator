@@ -1,9 +1,7 @@
 package com.jwjung.location.remote.kakao;
 
-import com.jwjung.location.remote.kakao.dto.KakaoLocationItemV1;
-
-import java.util.List;
+import com.jwjung.location.remote.model.RemoteLocationItemsV1;
 
 public interface KakaoLocationService {
-    List<KakaoLocationItemV1> getKakaoMapItems(String query);
+    RemoteLocationItemsV1 getKakaoItems(String query);
 }
