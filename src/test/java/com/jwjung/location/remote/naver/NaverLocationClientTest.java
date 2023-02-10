@@ -1,6 +1,7 @@
 package com.jwjung.location.remote.naver;
 
-import com.jwjung.location.remote.naver.dto.NaverLocationResponseV1;
+import com.jwjung.location.search.adapter.out.remote.naver.NaverLocationClient;
+import com.jwjung.location.search.adapter.out.remote.naver.dto.NaverLocationResponseV1;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

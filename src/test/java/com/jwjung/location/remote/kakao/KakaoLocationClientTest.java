@@ -1,6 +1,7 @@
 package com.jwjung.location.remote.kakao;
 
-import com.jwjung.location.remote.kakao.dto.KakaoLocationResponseV1;
+import com.jwjung.location.search.adapter.out.remote.kakao.KakaoLocationClient;
+import com.jwjung.location.search.adapter.out.remote.kakao.dto.KakaoLocationResponseV1;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

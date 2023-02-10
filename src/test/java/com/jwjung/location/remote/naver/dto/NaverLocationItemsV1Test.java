@@ -1,5 +1,6 @@
 package com.jwjung.location.remote.naver.dto;
 
+import com.jwjung.location.search.adapter.out.remote.naver.dto.NaverLocationItemV1;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
