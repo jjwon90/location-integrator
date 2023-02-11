@@ -2,22 +2,14 @@ package com.jwjung.location.search.domain;
 
 import com.jwjung.location.search.adapter.out.remote.model.RemoteLocationItemsV1;
 import lombok.Builder;
-import lombok.Value;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
-@Value
 @Builder
-public class LocationItems {
-    List<LocationItem> itemList;
-
+public record LocationItems(List<LocationItem> itemList) {
     public static LocationItems of(RemoteLocationItemsV1 naverItems,
                                    RemoteLocationItemsV1 kakaoItems) {
         if (naverItems.isEmpty() && kakaoItems.isEmpty()) {
@@ -26,9 +18,8 @@ public class LocationItems {
             return naverItemsOf(naverItems);
         } else if (naverItems.isEmpty()) {
             return kakaoItemsOf(kakaoItems);
-        } else {
-            return bothOf(kakaoItems, naverItems);
         }
+        return bothOf(kakaoItems, naverItems);
     }
 
     private static LocationItems emptyOf() {
@@ -39,13 +30,11 @@ public class LocationItems {
     private static LocationItems bothOf(RemoteLocationItemsV1 kakaoItems,
                                         RemoteLocationItemsV1 naverItems) {
         List<LocationItem> kakaoList = kakaoItems.remoteLocationItemList().stream()
-                .map(k -> new LocationItem(k.placeName()))
-                .filter(distinctByKey(LocationItem::getFirstWordOfName))
+                .map(k -> LocationItem.of(k.placeName(), k.address()))
                 .toList();
 
         List<LocationItem> naverList = naverItems.remoteLocationItemList().stream()
-                .map(n -> new LocationItem(n.placeName()))
-                .filter(distinctByKey(LocationItem::getFirstWordOfName))
+                .map(n -> LocationItem.of(n.placeName(), n.address()))
                 .toList();
 
         return LocationItems.builder()
@@ -56,8 +45,7 @@ public class LocationItems {
     private static LocationItems naverItemsOf(RemoteLocationItemsV1 naverItems) {
         List<LocationItem> naverMapList = naverItems.remoteLocationItemList()
                 .stream()
-                .map(n -> new LocationItem(n.placeName()))
-                .filter(distinctByKey(LocationItem::getFirstWordOfName))
+                .map(n -> LocationItem.of(n.placeName(), n.address()))
                 .toList();
 
         return LocationItems.builder()
@@ -67,18 +55,12 @@ public class LocationItems {
 
     private static LocationItems kakaoItemsOf(RemoteLocationItemsV1 kakaoItems) {
         List<LocationItem> kakaoList = kakaoItems.remoteLocationItemList().stream()
-                .map(k -> new LocationItem(k.placeName()))
-                .filter(distinctByKey(LocationItem::getFirstWordOfName))
+                .map(k -> LocationItem.of(k.placeName(), k.address()))
                 .toList();
 
         return LocationItems.builder()
                 .itemList(kakaoList)
                 .build();
-    }
-
-    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
-        Map<Object, Boolean> map = new HashMap<>();
-        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
     private static List<LocationItem> reorderingList(List<LocationItem> kakaoList,
@@ -107,7 +89,7 @@ public class LocationItems {
                                                List<LocationItem> resultList) {
         for (LocationItem kakaoItem : kakaoList) {
             for (LocationItem naverItem : naverList) {
-                if (kakaoItem.isEqualItem(naverItem)) {
+                if (kakaoItem.isEqualLocation(naverItem)) {
                     resultList.add(kakaoItem);
 
                     mutableKakaoList.remove(kakaoItem);

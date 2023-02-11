@@ -18,7 +18,8 @@ class KakaoLocationClientTest {
     @Test
     void getKakaoLocationSearch() {
         Optional<KakaoLocationResponseV1> 은행 =
-                kakaoLocationClient.getKakaoLocationSearch("은행");
-        System.out.println(은행);
+                kakaoLocationClient.getKakaoLocationSearch("천안 은행");
+        은행.get().documents()
+                .forEach(i -> System.out.println(i.placeName() + " / " + i.roadAddressName()));
     }
 }

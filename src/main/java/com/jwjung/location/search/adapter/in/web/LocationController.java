@@ -1,6 +1,6 @@
-package com.jwjung.location.search.adapter.in;
+package com.jwjung.location.search.adapter.in.web;
 
-import com.jwjung.location.search.adapter.in.dto.LocationResultsDTO;
+import com.jwjung.location.search.adapter.in.web.dto.LocationResultsDTO;
 import com.jwjung.location.search.application.port.in.LocationSearchUseCase;
 import com.jwjung.location.search.application.port.in.SearchCommand;
 import lombok.RequiredArgsConstructor;
