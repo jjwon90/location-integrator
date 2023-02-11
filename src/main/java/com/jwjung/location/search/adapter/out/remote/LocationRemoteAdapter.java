@@ -1,8 +1,8 @@
 package com.jwjung.location.search.adapter.out.remote;
 
-import com.jwjung.location.search.domain.LocationItems;
 import com.jwjung.location.search.adapter.out.remote.kakao.KakaoLocationService;
 import com.jwjung.location.search.adapter.out.remote.naver.NaverLocationService;
+import com.jwjung.location.search.domain.LocationItems;
 import com.jwjung.location.search.application.port.out.GetLocationPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

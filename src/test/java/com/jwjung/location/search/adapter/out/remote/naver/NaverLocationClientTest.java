@@ -1,6 +1,5 @@
-package com.jwjung.location.remote.naver;
+package com.jwjung.location.search.adapter.out.remote.naver;
 
-import com.jwjung.location.search.adapter.out.remote.naver.NaverLocationClient;
 import com.jwjung.location.search.adapter.out.remote.naver.dto.NaverLocationResponseV1;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

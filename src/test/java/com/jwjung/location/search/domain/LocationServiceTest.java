@@ -1,4 +1,4 @@
-package com.jwjung.location.domain.location;
+package com.jwjung.location.search.domain;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;

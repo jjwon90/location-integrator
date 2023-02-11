@@ -1,4 +1,4 @@
-package com.jwjung.location.search.adapter.out.event.popular;
+package com.jwjung.location.search.adapter.out.event;
 
 import com.jwjung.location.popular.adapter.in.event.PopularEventConsumer;
 import com.jwjung.location.search.application.port.out.PopularPort;
