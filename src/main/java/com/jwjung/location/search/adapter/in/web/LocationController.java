@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LocationController {
     private final LocationSearchUseCase locationSearchUseCase;
 
-    @GetMapping("/v1/location")
+    @GetMapping("/v1/locations")
     public LocationResultsDTO getLocations(@RequestParam("query") String query) {
         return LocationResultsDTO.of(locationSearchUseCase.getLocationItems(new SearchCommand(query)));
     }
