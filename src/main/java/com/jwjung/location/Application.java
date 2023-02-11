@@ -26,6 +26,7 @@ public class Application {
                 .configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(DeserializationFeature.USE_LONG_FOR_INTS, true);
         objectMapper.setSerializationInclusion(NON_NULL);
+
         return objectMapper;
     }
 }
