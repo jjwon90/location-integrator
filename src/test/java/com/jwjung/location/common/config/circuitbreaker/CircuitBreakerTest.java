@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeoutException;
 
-import static com.jwjung.location.common.config.circuitbreaker.CircuitBreakerTest.TEST_BREAKER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.times;
@@ -25,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CircuitBreakerApplication.class)
+@SpringBootTest(classes = CircuitBreakerTest.CircuitBreakerApplication.class)
 @Execution(ExecutionMode.SAME_THREAD)
 public class CircuitBreakerTest {
     public static final String TEST_BREAKER = "TestBreaker";
@@ -76,29 +75,32 @@ public class CircuitBreakerTest {
             verifyNoInteractions(testAnotherComponent);
         }
     }
-}
 
-@SpringBootApplication
-class CircuitBreakerApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(CircuitBreakerApplication.class, args);
-    }
+    @SpringBootApplication
+    static
+    class CircuitBreakerApplication {
+        public static void main(String[] args) {
+            SpringApplication.run(CircuitBreakerApplication.class, args);
+        }
 
-    @Service
-    @RequiredArgsConstructor
-    static class TestService {
-        private final TestAnotherComponent testAnotherComponent;
+        @Service
+        @RequiredArgsConstructor
+        static class TestService {
+            private final TestAnotherComponent testAnotherComponent;
 
-        @CircuitBreaker(name = TEST_BREAKER)
-        public String testBreaker() throws Exception {
-            return testAnotherComponent.testAnother();
+            @CircuitBreaker(name = TEST_BREAKER)
+            public String testBreaker() throws Exception {
+                return testAnotherComponent.testAnother();
+            }
+        }
+
+        @Component
+        static class TestAnotherComponent {
+            public String testAnother() throws Exception {
+                return "test";
+            }
         }
     }
-
-    @Component
-    static class TestAnotherComponent {
-        public String testAnother() throws Exception {
-            return "test";
-        }
-    }
 }
+
+

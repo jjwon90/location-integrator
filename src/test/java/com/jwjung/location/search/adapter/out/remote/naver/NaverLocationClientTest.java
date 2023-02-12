@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @SpringBootTest
 @Disabled
 class NaverLocationClientTest {
@@ -17,7 +19,6 @@ class NaverLocationClientTest {
     @Test
     void getNaverLocationSearch() {
         Optional<NaverLocationResponseV1> 은행 = naverLocationClient.getNaverLocationSearch("동탄하나은행");
-        은행.get().items()
-                .forEach(d -> System.out.println(d.getEscapingTitle() + " / " + d.roadAddress()));
+        assertTrue(!은행.get().items().isEmpty());
     }
 }

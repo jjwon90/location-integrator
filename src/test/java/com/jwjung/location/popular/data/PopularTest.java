@@ -1,6 +1,7 @@
 package com.jwjung.location.popular.data;
 
 import com.jwjung.location.popular.application.port.in.PopularCommand;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PopularTest {
 
     @Test
+    @DisplayName("동시에 들어왔을 때, 카운트 보장 여부 확인")
     void addQueryCount() throws InterruptedException {
         ExecutorService e = Executors.newFixedThreadPool(50);
         CountDownLatch countDownLatch = new CountDownLatch(50);
@@ -33,6 +35,7 @@ class PopularTest {
     }
 
     @Test
+    @DisplayName("top 10 list 제대로 보이는지 확인")
     void getTopTenQuery() {
         setup_topTen();
 

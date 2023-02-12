@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @SpringBootTest
 @Disabled
 class KakaoLocationClientTest {
@@ -18,7 +20,6 @@ class KakaoLocationClientTest {
     void getKakaoLocationSearch() {
         Optional<KakaoLocationResponseV1> 은행 =
                 kakaoLocationClient.getKakaoLocationSearch("천안 은행");
-        은행.get().documents()
-                .forEach(i -> System.out.println(i.placeName() + " / " + i.roadAddressName()));
+        assertTrue(!은행.get().documents().isEmpty());
     }
 }
