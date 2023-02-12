@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PopularTest {
 
@@ -48,6 +49,13 @@ class PopularTest {
 
         assertEquals("test2", Popular.getTopTenQuery().get(1).getKey());
         assertEquals(1, Popular.getTopTenQuery().get(1).getValue());
+    }
+
+    @Test
+    @DisplayName("map에 아무 것도 없을 때 확인")
+    void test_none_value() {
+        List<Map.Entry<String, Long>> topTenQuery = Popular.getTopTenQuery();
+        assertTrue(topTenQuery.isEmpty());
     }
 
     @Test
