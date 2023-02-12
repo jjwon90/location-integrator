@@ -1,5 +1,6 @@
-package com.jwjung.location.search.domain;
+package com.jwjung.location.search.application.domain;
 
+import com.jwjung.location.search.domain.LocationItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

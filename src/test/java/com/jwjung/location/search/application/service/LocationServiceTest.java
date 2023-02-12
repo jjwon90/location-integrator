@@ -1,4 +1,4 @@
-package com.jwjung.location.search.domain;
+package com.jwjung.location.search.application.service;
 
 import com.jwjung.location.popular.application.port.in.PopularCommand;
 import com.jwjung.location.popular.data.Popular;
@@ -7,6 +7,7 @@ import com.jwjung.location.search.application.port.in.SearchCommand;
 import com.jwjung.location.search.application.port.out.GetLocationPort;
 import com.jwjung.location.search.application.port.out.PopularPort;
 import com.jwjung.location.search.application.service.LocationService;
+import com.jwjung.location.search.domain.LocationItems;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;

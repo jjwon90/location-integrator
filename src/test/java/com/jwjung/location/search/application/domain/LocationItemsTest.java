@@ -1,10 +1,12 @@
-package com.jwjung.location.search.domain;
+package com.jwjung.location.search.application.domain;
 
 import com.jwjung.location.search.adapter.out.remote.kakao.dto.KakaoLocationItemV1;
 import com.jwjung.location.search.adapter.out.remote.kakao.dto.KakaoLocationResponseV1;
 import com.jwjung.location.search.adapter.out.remote.model.RemoteLocationItemsV1;
 import com.jwjung.location.search.adapter.out.remote.naver.dto.NaverLocationItemV1;
 import com.jwjung.location.search.adapter.out.remote.naver.dto.NaverLocationResponseV1;
+import com.jwjung.location.search.domain.LocationItem;
+import com.jwjung.location.search.domain.LocationItems;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

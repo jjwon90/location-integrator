@@ -10,10 +10,71 @@ kakao:
   host: https://dapi.kakao.com
   client-secret: ENC(03qI7aLVbLsfQyITNidRj7F1JZpt6jcaK87yz4DmzXl6UmlMO9Q7X/ovmtbw3F9GHMocTHM3EfDWnFzjQP00oAGBye7ap2TlfI74ne7rW4w=)
 
+server:
+  port: 8080
+  tomcat:
+    threads:
+      min-spare: 200
+      max: 200
+    mbeanregistry:
+      enabled: true
+  servlet:
+    encoding:
+      force: true
+
+
 feign:
   circuitbreaker:
     enabled: true
-    alphanumeric-ids:
-      enabled: true
   httpclient:
     enabled: true
+    max-connections: 100
+    max-connections-per-route: 50
+    connection-timeout: 100
+  compression:
+    response:
+      enabled: true
+  client:
+    config:
+      default:
+        decode404: true
+      naverlocation:
+        connectTimeout: 100
+        readTimeout: 200
+      kakaolocation:
+        connectTimeout: 100
+        readTimeout: 200
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: TIME_BASED
+        slidingWindowSize: 10
+        failureRateThreshold: 10
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 5s
+        ignoreExceptions:
+          - feign.FeignException.FeignClientException
+  thread-pool-bulkhead:
+    # fixedThreadPool 기반으로 bulkhead 세팅
+    configs:
+      default:
+        maxThreadPoolSize: 40
+        coreThreadPoolSize: 5
+        queueCapacity: 30
+        keepAliveDuration: 30s
+    instances:
+      kakaolocation:
+        baseConfig: default
+        maxThreadPoolSize: 20
+      naverlocation:
+        baseConfig: default
+        maxThreadPoolSize: 20
+
+  # 단위 시간 동안 허가되는 요청수
+  #ratelimiter:
+   # configs:
+    #  limitForPeriod: 2000 # cycle동안 호출할 수 있는 횟수
+     # timeoutDuration: 0 # 호출 thread가 rateLimit에 대해서 접근허가를 얻기위해 대기하는 시간
+      #limitRefreshPeriod: 1s # cycle이 가지는 주기, cycle 주기가 끝나면 호출 가능 횟수 다시 reset
