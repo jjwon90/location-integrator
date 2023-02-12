@@ -1,4 +1,4 @@
-package com.jwjung.location.common.config.bulkhead;
+package com.jwjung.location.common.config.resilience4j.bulkhead;
 
 import io.github.resilience4j.bulkhead.BulkheadFullException;
 import io.github.resilience4j.bulkhead.ThreadPoolBulkhead;

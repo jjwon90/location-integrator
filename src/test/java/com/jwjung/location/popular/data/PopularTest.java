@@ -35,6 +35,22 @@ class PopularTest {
     }
 
     @Test
+    @DisplayName("map.merge 메소드 테스트")
+    void test_merge_method() {
+        Popular.addQueryCount(new PopularCommand("test1"));
+        Popular.addQueryCount(new PopularCommand("test1"));
+        Popular.addQueryCount(new PopularCommand("test1"));
+
+        Popular.addQueryCount(new PopularCommand("test2"));
+
+        assertEquals("test1", Popular.getTopTenQuery().get(0).getKey());
+        assertEquals(3, Popular.getTopTenQuery().get(0).getValue());
+
+        assertEquals("test2", Popular.getTopTenQuery().get(1).getKey());
+        assertEquals(1, Popular.getTopTenQuery().get(1).getValue());
+    }
+
+    @Test
     @DisplayName("top 10 list 제대로 보이는지 확인")
     void getTopTenQuery() {
         setup_topTen();
