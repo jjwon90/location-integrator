@@ -15,4 +15,9 @@ public class AsyncThreadConfig {
     public ExecutorService asyncLocationSearcher() {
         return newFixedThreadPool(30);
     }
+
+    @Bean(name = "asyncPopularAdder")
+    public ExecutorService asyncPopularAdder() {
+        return newFixedThreadPool(30);
+    }
 }

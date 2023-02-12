@@ -5,13 +5,14 @@ import lombok.Builder;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
 @Builder
 public record LocationItems(List<LocationItem> itemList) {
-    public static LocationItems of(RemoteLocationItemsV1 naverItems,
-                                   RemoteLocationItemsV1 kakaoItems) {
+    public static LocationItems of(RemoteLocationItemsV1 kakaoItems,
+                                   RemoteLocationItemsV1 naverItems) {
         if (naverItems.isEmpty() && kakaoItems.isEmpty()) {
             return emptyOf();
         } else if (kakaoItems.isEmpty()) {
@@ -24,6 +25,7 @@ public record LocationItems(List<LocationItem> itemList) {
 
     private static LocationItems emptyOf() {
         return LocationItems.builder()
+                .itemList(Collections.emptyList())
                 .build();
     }
 

@@ -8,7 +8,7 @@ public record LocationResultsDTO(List<LocationResultItemDTO> resultList) {
     public static LocationResultsDTO of(LocationItems items) {
         return new LocationResultsDTO(items.itemList()
                 .stream()
-                .map(i -> new LocationResultItemDTO(i.name()))
+                .map(i -> new LocationResultItemDTO(i.name(), i.address()))
                 .toList());
     }
 }
