@@ -18,7 +18,8 @@ class NaverLocationClientTest {
 
     @Test
     void getNaverLocationSearch() {
-        Optional<NaverLocationResponseV1> 은행 = naverLocationClient.getNaverLocationSearch("동탄하나은행");
+        Optional<NaverLocationResponseV1> 은행 = naverLocationClient.getNaverLocationSearch("씨티은행");
+        System.out.println(은행.get());
         assertTrue(!은행.get().items().isEmpty());
     }
 }

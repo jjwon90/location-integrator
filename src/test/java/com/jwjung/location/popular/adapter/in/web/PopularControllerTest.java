@@ -2,6 +2,7 @@ package com.jwjung.location.popular.adapter.in.web;
 
 import com.jwjung.location.popular.application.port.in.LoadPopularUseCase;
 import com.jwjung.location.popular.domain.PopularItem;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,6 +28,7 @@ class PopularControllerTest {
     LoadPopularUseCase loadPopularUseCase;
 
     @Test
+    @DisplayName("정상 일반적인 케이스 테스트")
     void test__getPopularQueries() throws Exception {
         given(loadPopularUseCase.getTopTenItems())
                 .willReturn(List.of(new PopularItem("test1", 1)));
@@ -40,6 +42,7 @@ class PopularControllerTest {
     }
 
     @Test
+    @DisplayName("인기검색어가 없는 케이스")
     void test__getPopularQueries_empty_case() throws Exception {
         given(loadPopularUseCase.getTopTenItems())
                 .willReturn(Collections.emptyList());

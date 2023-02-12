@@ -15,8 +15,10 @@ public record NaverLocationItemV1(String title,
                                   String mapx,
                                   String mapy) {
     private static final Pattern TAG_PATTERN = Pattern.compile("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>");
+    private static final Pattern MULTI_SPACE = Pattern.compile("\\s+");
 
     public String getEscapingTitle() {
-        return HtmlUtils.htmlUnescape(TAG_PATTERN.matcher(this.title).replaceAll(""));
+        String htmlUnescape = HtmlUtils.htmlUnescape(TAG_PATTERN.matcher(this.title).replaceAll(""));
+        return MULTI_SPACE.matcher(htmlUnescape).replaceAll(" ");
     }
 }

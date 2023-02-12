@@ -31,9 +31,6 @@ feign:
     max-connections: 100
     max-connections-per-route: 50
     connection-timeout: 100
-  compression:
-    response:
-      enabled: true
   client:
     config:
       default:

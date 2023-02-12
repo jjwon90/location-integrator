@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PopularEventConsumer {
+public class PopularEventAdapter {
     private final UpdatePopularUseCase updatePopularUseCase;
 
     @Async("asyncPopularAdder")

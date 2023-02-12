@@ -5,6 +5,7 @@ import com.jwjung.location.search.adapter.out.remote.kakao.dto.KakaoLocationResp
 import com.jwjung.location.search.adapter.out.remote.model.RemoteLocationItemsV1;
 import com.jwjung.location.search.application.port.in.LocationSearchUseCase;
 import com.jwjung.location.search.domain.LocationItems;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,6 +32,7 @@ class LocationControllerTest {
     LocationSearchUseCase locationSearchUseCase;
 
     @Test
+    @DisplayName("일반적인 응답 케이스 테스트")
     void test_getLocations() throws Exception {
         given(locationSearchUseCase.getLocationItems(any()))
                 .willReturn(LocationItems.of(RemoteLocationItemsV1.ofKakaoItems(new KakaoLocationResponseV1(List.of(
@@ -51,6 +53,7 @@ class LocationControllerTest {
     }
 
     @Test
+    @DisplayName("문자열이 없는 것이 요청되는 경우 테스트")
     void test_getLocations__Bad_Request() throws Exception {
         mockMvc.perform(get("/v1/locations").param("query", ""))
                 .andDo(print())
