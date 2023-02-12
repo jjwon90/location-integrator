@@ -1,14 +1,17 @@
-## Table Of Contents
+Table Of Contents
+==
 - [개발 환경](#개발환경)
 - [사용 오픈소스](#사용-오픈소스)
 - [테스트](#테스트)
 - [기능 별 구현 명세](#기능별-구현-명세)
 
-### 개발환경
+개발환경
+===
 * Framework : SpringBoot 2.7.8
 * Language : Java 17
 
-### 사용 오픈소스
+사용 오픈소스
+===
 * Resilience4j
 * Openfeign
 * Apache commons
@@ -20,10 +23,13 @@
 * Jasypt
 * Lombok
 
-### 테스트
+테스트
+===
 
-### 기능별 구현 명세
-#### 장소 검색
+기능별 구현 명세
+===
+장소 검색
+====
 * package 구조
   ![Search Package 구조](/img/search-package.png)
 * Naver api 구현
@@ -48,7 +54,8 @@
       2. 시, 도 -> 시, 군, 구 -> 읍, 면, 구 -> 도로명 -> 건물번호
          * 경기도 안양시 동안구 평촌대로 111
 
-#### 인기 검색어     
+인기 검색어     
+====
 * package 구조
   ![Popular Package 구조](/img/popular-package.png)
 * 인기검색어
