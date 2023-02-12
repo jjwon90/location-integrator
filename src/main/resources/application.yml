@@ -73,8 +73,9 @@ resilience4j:
         maxThreadPoolSize: 20
 
   # 단위 시간 동안 허가되는 요청수
-  #ratelimiter:
-   # configs:
-    #  limitForPeriod: 2000 # cycle동안 호출할 수 있는 횟수
-     # timeoutDuration: 0 # 호출 thread가 rateLimit에 대해서 접근허가를 얻기위해 대기하는 시간
-      #limitRefreshPeriod: 1s # cycle이 가지는 주기, cycle 주기가 끝나면 호출 가능 횟수 다시 reset
+  ratelimiter:
+    configs:
+      default:
+        limitForPeriod: 2000 # cycle동안 호출할 수 있는 횟수
+        timeoutDuration: 0 # 호출 thread가 rateLimit에 대해서 접근허가를 얻기위해 대기하는 시간
+        limitRefreshPeriod: 1s # cycle이 가지는 주기, cycle 주기가 끝나면 호출 가능 횟수 다시 reset

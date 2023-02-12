@@ -1,4 +1,4 @@
-package com.jwjung.location.common.config.circuitbreaker;
+package com.jwjung.location.common.config.resilience4j.circuitbreaker;
 
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
