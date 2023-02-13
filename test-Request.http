@@ -40,13 +40,42 @@ GET http://localhost:8080/v1/locations?query=평촌은행
     });
 %}
 
+### 데이터 조합용 임의 호출
+
 ###
+GET http://localhost:8080/v1/locations?query=평촌은행
 
+###
+GET http://localhost:8080/v1/locations?query=평촌은행
 
+###
+GET http://localhost:8080/v1/locations?query=평촌은행
 
-####
-#GET http://localhost:8080/v1/locations?query=동탄은행
-#
-####
-#GET http://localhost:8080/v1/popular-queries
-#Accept: application/json
+###
+GET http://localhost:8080/v1/locations?query=평촌은행
+
+###
+GET http://localhost:8080/v1/locations?query=은행
+
+###
+GET http://localhost:8080/v1/locations?query=은행
+
+###
+GET http://localhost:8080/v1/locations?query=은행
+
+###
+GET http://localhost:8080/v1/locations?query=은행
+
+### popular query 확인 테스트(이 테스트는 어플리케이션을 새로 띄우고 모든 request를 실행시켜야 정상 동작합니다.
+GET http://localhost:8080/v1/popular-queries
+
+> {%
+    client.test("Status Code Test", function() {
+        client.assert(response.status === 200, "Status Code Test");
+        client.assert(response.body.popularList.length > 0, "Popular List 확인");
+
+        var popularItem = response.body.popularList[0];
+        client.assert(popularItem.query === "평촌은행", "응답 확인");
+        client.assert(popularItem.count === 5, "응답 확인");
+    });
+%}
