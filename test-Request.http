@@ -1,0 +1,52 @@
+### 기본적인 응답 구조 테스트
+GET http://localhost:8080/v1/locations?query=동탄은행
+
+> {%
+    client.test("응답값 확인", function() {
+        client.assert(response.status === 200, "Response status is 200");
+        client.assert(response.body.resultList.length > 0, "Response 응답값 확인");
+        for (var i = 0; i < response.body.resultList.length; i++) {
+            client.assert(response.body.resultList[i].placeName.length > 0, "PlaceName 체크");
+            client.assert(response.body.resultList[i].address.length > 0, "address 체크");
+        }
+
+    });
+%}
+
+### 요청 값이 없는 경우 테스트
+GET http://localhost:8080/v1/locations?query=
+
+> {%
+    client.test("Status Code Test", function() {
+        client.assert(response.status === 400, "Status Code Test");
+        client.assert(response.body.status === "BAD_REQUEST", "RESPONSE_BODY TEST");
+    });
+%}
+
+### 읍, 면, 구가 더 있는 주소의 케이스 테스트
+GET http://localhost:8080/v1/locations?query=평촌은행
+
+> {%
+    client.test("읍, 면, 구가 더 있는 행정 구역 테스트", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        for (var i = 0; i < response.body.resultList.length; i++) {
+            var tempVariable = response.body.resultList[i];
+            client.assert(tempVariable.placeName.length > 0, "장소명 존재 확인");
+
+            var tempAddress = tempVariable.address;
+            var tempAddressArr = tempAddress.split(" ");
+            client.assert(tempAddressArr.length > 4, "주소 단위 확인");
+        }
+    });
+%}
+
+###
+
+
+
+####
+#GET http://localhost:8080/v1/locations?query=동탄은행
+#
+####
+#GET http://localhost:8080/v1/popular-queries
+#Accept: application/json
