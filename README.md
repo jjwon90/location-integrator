@@ -181,12 +181,46 @@ curl --location --request GET 'http://localhost:8080/v1/locations?query=%ED%8F%8
 ----
 * location-integrator는 Domain Handling을 위하여 Hexagonal Architecture를 지향하며 다음의 원칙으로 Layer를 구성하였다.
 
-| Layer 구분                      | 설명                                                                                                                        |
-|-------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| Infrastructure Layer(Adapter) | 외부에서 내부 시스템의 inbound 요청 <br> 내부 시스템에서 외부 시스템으로의 outbound 요청<br><br> - 외부 시스템 RestApi Call<br> - 다른 도메인 호출<br> - data로의 요청 |
-| Application Layer(Port)       | Domain Model Layer에 접근 및 제어를 위한 Business Logic 구간                                                                         |
-| Domain Model Layer            | Aggregate 단위로 구분된 Domain Model                                                                                            |
-
+<table>
+  <tr>
+    <th>Layer 구분</th>
+    <th>설명</th>
+  </tr>
+  <tr>
+    <td>
+Infrastructure Layer(Adapter)
+    </td>
+    <td>
+      <ul>
+        <li>
+          외부에서 내부 시스템의 inbound 요청
+        </li>
+        <li>
+          내부 시스템에서 외부 시스템으로의 outbound 요청
+            <ul>
+              <li>외부 시스템 RestApi Call</li>
+              <li>다른 도메인 호출</li>
+              <li>data hub에 대한 data 요청</li>
+            </ul>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Application Layer(Port)
+    </td>
+    <td>
+      Domain Model Layer에 접근 및 제어를 위한 Business Logic 구간 
+    </td>
+  </tr>
+  <tr>
+    <td>Domain Model Layer</td>
+    <td>
+      Aggregate 단위로 구분된 Domain Model
+    </td>
+  </tr>
+</table>
 
 #### 장소 검색
 
