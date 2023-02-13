@@ -5,6 +5,7 @@ import io.github.resilience4j.bulkhead.ThreadPoolBulkhead;
 import io.github.resilience4j.bulkhead.ThreadPoolBulkheadConfig;
 import io.vavr.control.Try;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -28,6 +29,7 @@ public class BulkheadTest {
     }
 
     @Test
+    @DisplayName("bulkhead가 꽉 찼을 때 확인")
     public void fail__BulkHeadFull() throws InterruptedException {
         ThreadPoolBulkhead bulkhead = ThreadPoolBulkhead.of("test", config);
         given(testService.returnHelloWorld()).willReturn("Hello world");

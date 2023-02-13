@@ -2,7 +2,9 @@ package com.jwjung.location.popular.adapter.in.event;
 
 import com.jwjung.location.popular.application.port.in.PopularCommand;
 import com.jwjung.location.popular.application.port.in.UpdatePopularUseCase;
-import com.jwjung.location.popular.data.Popular;
+import com.jwjung.location.popular.data.MockPopular;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -41,7 +43,7 @@ class PopularEventAdapterTest {
     static class MockUpdatePopularUseCase implements UpdatePopularUseCase {
         @Override
         public void updatePopularCount(PopularCommand popularCommand) {
-            Popular.addQueryCount(popularCommand);
+            MockPopular.addQueryCount(popularCommand);
         }
     }
 
@@ -52,14 +54,20 @@ class PopularEventAdapterTest {
             popularEventAdapter = new PopularEventAdapter(updatePopularUseCase);
             popularEventAdapter.updatePopularCount("test1");
 
-            assertEquals("test1", Popular.getTopTenQuery().get(1).getKey());
-            assertEquals(1, Popular.getTopTenQuery().get(1).getValue());
+            assertEquals("test1", MockPopular.getTopTenQuery().get(0).getKey());
+            assertEquals(1, MockPopular.getTopTenQuery().get(0).getValue());
+        }
+
+        @AfterEach
+        void reset() {
+            MockPopular.reset();
         }
     }
 
     @Nested
     class Async_TEST {
         @Test
+        @DisplayName("병렬 호출 시 update 제대로 되는지 확인")
         void updatePopularCommand__ASYNC() throws InterruptedException {
             UpdatePopularUseCase spy = spy(updatePopularUseCase);
             PopularEventAdapter mockAsyncPopularEventAdapter = new MockAsyncPopularEventAdapter(spy);
@@ -77,6 +85,11 @@ class PopularEventAdapterTest {
 
             countDownLatch.await();
             verify(spy, Mockito.timeout(1100L).atLeast(5)).updatePopularCount(any());
+        }
+
+        @AfterEach
+        void reset() {
+            MockPopular.reset();
         }
     }
 }

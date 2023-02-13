@@ -35,6 +35,8 @@ Table Of Contents
 ### 테스트
 
 ----
+* test1
+* test2
 
 ----
 ### 기능 별 구현 명세 및 고려사항
@@ -66,7 +68,7 @@ Table Of Contents
 
 ----
 * package 구조
-  ![Popular Package 구조](/img/popular-package.png)
+  ![Popular Package 구조](/img/popular-image.png)
 * 인기검색어 Data
   * ConcurrentHashMap 이용
     * 동시 데이터 갱신시, 가장 안전한 자료구조

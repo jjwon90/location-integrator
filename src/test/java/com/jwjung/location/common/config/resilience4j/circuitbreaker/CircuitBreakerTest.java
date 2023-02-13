@@ -4,6 +4,7 @@ import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -37,6 +38,7 @@ public class CircuitBreakerTest {
     CircuitBreakerRegistry circuitBreakerRegistry;
 
     @Test
+    @DisplayName("정상적으로 호출되고 리턴확인")
     void normalCaseTest() throws Exception {
         circuitBreakerRegistry.circuitBreaker(TEST_BREAKER)
                 .transitionToClosedState();
@@ -47,6 +49,7 @@ public class CircuitBreakerTest {
     }
 
     @Test
+    @DisplayName("Timeout 리턴, 그러나 서킷 상태 정상 확인")
     void getException__WhenCircuitBreakerIsClosed__ButBackendTimesOut() throws Exception {
         circuitBreakerRegistry.circuitBreaker(TEST_BREAKER)
                 .transitionToClosedState();
@@ -62,6 +65,7 @@ public class CircuitBreakerTest {
     }
 
     @Test
+    @DisplayName("circuit이 오픈되어서 정상 호출 되지 않는 것 확인")
     void getException__WhenCircuitBreakerIsOpen() throws Exception {
         circuitBreakerRegistry.circuitBreaker(TEST_BREAKER)
                 .transitionToOpenState();

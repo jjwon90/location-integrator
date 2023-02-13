@@ -4,6 +4,7 @@ import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -41,6 +42,7 @@ public class RateLimiterTest {
     }
 
     @Test
+    @DisplayName("RateLimiter에 의해 request안되도록 제한")
     public void decorateFutureFailure() {
         Supplier<String> supplier = mock(Supplier.class);
         given(supplier.get()).willReturn("Resource");
@@ -52,6 +54,7 @@ public class RateLimiterTest {
     }
 
     @Test
+    @DisplayName("정상 적으로 호출되는지 확인")
     public void decorateFutureSuccess()
             throws ExecutionException, InterruptedException, TimeoutException {
         Supplier<String> supplier = mock(Supplier.class);
@@ -67,6 +70,7 @@ public class RateLimiterTest {
     }
 
     @Test
+    @DisplayName("permission wait 확인")
     public void waitForPermissionWithOne() {
         given(limit.acquirePermission(1)).willReturn(true);
 
@@ -76,6 +80,7 @@ public class RateLimiterTest {
     }
 
     @Test
+    @DisplayName("permission 얻는 것을 실패하는 경우 확인")
     public void waitForPermissionWithoutOne() {
         given(limit.acquirePermission(1)).willReturn(false);
 

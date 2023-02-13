@@ -1,10 +1,7 @@
 package com.jwjung.location.search.adapter.out.event;
 
 import com.jwjung.location.popular.adapter.in.event.PopularEventAdapter;
-import com.jwjung.location.popular.application.port.in.PopularCommand;
-import com.jwjung.location.popular.application.port.in.UpdatePopularUseCase;
-import com.jwjung.location.popular.data.Popular;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,14 +12,9 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @MockitoSettings
 class PopularAdapterTest {
@@ -32,6 +24,7 @@ class PopularAdapterTest {
     PopularEventAdapter popularEventAdapter;
 
     @Test
+    @DisplayName("병렬 호출 시에도 제대로 다 호출이 되었는지 확인")
     void producePopularEvent__Test() throws InterruptedException {
         ExecutorService e = Executors.newFixedThreadPool(50);
         CountDownLatch countDownLatch = new CountDownLatch(50);

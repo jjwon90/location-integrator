@@ -4,7 +4,8 @@ import com.jwjung.location.search.domain.LocationItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LocationItemTest {
     // 시군구 주소 테스트 할 때, 오류없이 제대로 검사하는 지 테스트
