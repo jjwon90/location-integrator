@@ -191,19 +191,13 @@ curl --location --request GET 'http://localhost:8080/v1/locations?query=%ED%8F%8
 Infrastructure Layer(Adapter)
     </td>
     <td>
-      <ul>
-        <li>
-          외부에서 내부 시스템의 inbound 요청
-        </li>
-        <li>
-          내부 시스템에서 외부 시스템으로의 outbound 요청
-            <ul>
-              <li>외부 시스템 RestApi Call</li>
-              <li>다른 도메인 호출</li>
-              <li>data hub에 대한 data 요청</li>
-            </ul>
-        </li>
-      </ul>
+        외부에서 내부 시스템의 inbound 요청<br />
+        내부 시스템에서 외부 시스템으로의 outbound 요청
+          <ul>
+            <li>외부 시스템 RestApi Call</li>
+            <li>다른 도메인 호출</li>
+            <li>data hub에 대한 data 요청</li>
+          </ul>
     </td>
   </tr>
   <tr>
