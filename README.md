@@ -172,6 +172,31 @@ curl --location --request GET 'http://localhost:8080/v1/locations?query=%ED%8F%8
       </pre>
     </td>
   </tr>
+  <tr>
+  <td>
+    curl --location --request GET 'http://localhost:8080/v1/popular-queries'
+  </td>
+  <td>
+  <pre>
+{
+    "popularList": [
+        {
+            "query": "평촌은행",
+            "count": 5
+        },
+        {
+            "query": "은행",
+            "count": 4
+        },
+        {
+            "query": "동탄은행",
+            "count": 1
+        }
+    ]
+}
+  </pre>
+  </td>
+  </tr>
 </table>
 
 ----
